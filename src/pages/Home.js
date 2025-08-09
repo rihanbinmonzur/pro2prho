@@ -1,8 +1,8 @@
-
+import Weblayout from '../layout/Weblayout';
 
 function Home() {
   return (
-    <>
+    <Weblayout>
      
 
 <div id="main-wrapper" className="section">
@@ -555,7 +555,7 @@ function Home() {
 </div>
 
 </div>
-</>
+</Weblayout>
   );
 }
 

@@ -1,13 +1,28 @@
 
 import {BrowserRouter,Route,Routes} from "react-router";
-import About from './pages/Home';
-import Home from './pages/About';
+import Home  from './pages/Home';
+import About from './pages/About';
+
+ /* admin route */
+ import Dashboard from './Admin/Dashboard';
+ import Users from './Admin/Users';
+ 
+
+
+
 function App() {
   return (
  <Routes>
     <Route path="/" element={<Home/>} />
     <Route path="/about" element={<About/>} />
 
+
+    {/* Admin route*/}
+
+    <Route path="/admin/dashboard" element={<Dashboard />} />
+    <Route path="/admin/user" element={<Users/>} />
+
+   
  </Routes>    
      
 

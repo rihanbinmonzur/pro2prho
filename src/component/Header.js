@@ -100,14 +100,14 @@ function Header() {
                         
                         <nav id="main-menu" className="main-menu">
                             <ul>
-                                <Link to="/">Home</Link>
-                                <li><a href="shop.html">shop</a>
+                                 <li>   <Link to="/">Home</Link></li>
+                               <li> <a href="shop.html">shop</a>
                                     <ul className="sub-menu">
                                         <li><a href="shop.html">shop page</a></li>
                                         <li><a href="product-details.html">product details</a></li>
                                     </ul>
                                 </li>
-                              <Link to="/about">About</Link>
+                              <li><Link to="/about">About</Link></li>
                                 <li><a href="#">pages</a>
                                     <ul className="sub-menu">
                                         <li><a href="cart.html">cart</a></li>
