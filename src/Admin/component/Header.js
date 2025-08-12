@@ -12,6 +12,10 @@ function Header(){
                     <li className="nav-item">
                         <Link className="nav-link text-white" to={"/admin/user"}>User</Link>
                     </li>
+                    <li className="nav-item">
+                        <Link className="nav-link text-white" to={"/admin/useradd"}>add_user</Link>
+                    </li>
+
                 </ul>
             </div>
         </nav>
