@@ -26,7 +26,7 @@ const handleSubmit =async(e) =>{
         let response= await axios({
             method:'post',
             responsiveType:'json',
-            url:'http://localhost/learner-api/users_add.php',
+            url:'http://localhost/christmas-api/users_add.php',
             data:inputs
         });
         navigate('/admin/user')
