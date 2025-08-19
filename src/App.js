@@ -1,34 +1,93 @@
+import React, { useEffect, useState } from 'react';
+import { Route, Routes } from 'react-router';
+import { CartProvider, useCart } from "react-use-cart";
 
-import {BrowserRouter,Route,Routes} from "react-router";
 import Home  from './pages/Home';
 import About from './pages/About';
+import Cart from './pages/Cart';
+import Checkout from './pages/Checkout';
+
 
  /* admin route */
- import Dashboard from './Admin/Dashboard';
- import Users from './Admin/Users';
- import Useradd from './Admin/Useradd';
- import Register from "./Admin/Register";
+import Login from './Admin/Login';
+import Register from './Admin/Register';
+import Dashboard from './Admin/Dashboard';
+import Users from './Admin/Users';
+import Protected from './component/protected';
+import Categories from './Admin/Categories';
+import Brand from './Admin/Brand';
+import Colour from './Admin/Colour';
+import Product from './Admin/Product';
+import Coupon from './Admin/Coupon';
+import Orders from './Admin/Orders';
  
 
 
 
 function App() {
+  const [ isSignedIn, setIsSignedIn ] = useState(()=> {
+    /* if you want, user will be logged in until they logout*/
+    //return localStorage.getItem("access_token") || false;
+    /* if you want, user will be logged when they close the browser*/
+    return sessionStorage.getItem("access_token") || false;
+  });
   return (
- <Routes>
-    <Route path="/" element={<Home/>} />
-    <Route path="/about" element={<About/>} />
+    <CartProvider>
+      <Routes>
+        <Route path="/" element={<Home/>} />
+        <Route path="/about" element={<About/>} />
+        <Route path="/cart" element={<Cart/>} />
+        <Route path="/checkout" element={<Checkout/>} />
 
 
-    {/* Admin route*/}
+        {/* Admin route*/}
 
-    <Route path="/admin/dashboard" element={<Dashboard />} />
-    <Route path="/admin/user" element={<Users/>} />
-    <Route path="/admin/useradd" element={<Useradd/>} />
-    <Route path="/admin/register" element={<Register/>} />
-    <Route path="/admin/login" element={<login/>} />
-   
- </Routes>    
-     
+        <Route path="/register" element={<Register />} />
+                
+        <Route path="/login" element={<Login />} />
+        {/* Admin route */}
+        <Route path= {"/admin/dashboard"} element={
+          <Protected  isSignedIn= {isSignedIn} >
+            <Dashboard /> 
+          </Protected>
+          } />
+        <Route path= {"/admin/user"} element={
+          <Protected  isSignedIn= {isSignedIn} >
+            <Users /> 
+          </Protected>
+          } />
+        <Route path= {"/admin/categories"} element={
+          <Protected  isSignedIn= {isSignedIn} >
+            <Categories /> 
+          </Protected>
+          } />
+        <Route path= {"/admin/brands"} element={
+          <Protected  isSignedIn= {isSignedIn} >
+            <Brand /> 
+          </Protected>
+          } />
+        <Route path= {"/admin/colour"} element={
+          <Protected  isSignedIn= {isSignedIn} >
+            <Colour /> 
+          </Protected>
+          } />
+        <Route path= {"/admin/product"} element={
+          <Protected  isSignedIn= {isSignedIn} >
+            <Product /> 
+          </Protected>
+          } />
+        <Route path= {"/admin/coupon"} element={
+          <Protected  isSignedIn= {isSignedIn} >
+            <Coupon /> 
+          </Protected>
+          } />
+        <Route path= {"/admin/orders"} element={
+          <Protected  isSignedIn= {isSignedIn} >
+            <Orders /> 
+          </Protected>
+          } />
+      </Routes>    
+    </CartProvider>
 
   );
 }

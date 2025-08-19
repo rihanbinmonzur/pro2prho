@@ -9,11 +9,12 @@ import '../assets/style.css';
 
 function Weblayout({children}){
     return (
-        <>
-        <Header/>
-        {children}
-        <Footer/>
-        </>
+        
+        <div id="main-wrapper" className="section">
+            <Header/>
+            {children}
+            <Footer/>
+        </div>
     );
 }
 export default Weblayout;

@@ -1,111 +1,117 @@
-
-import axios from 'axios';
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
+import axios from './component/axios';
 import { useNavigate } from 'react-router-dom';
-import '../Admin/Recss.css';
 
+function Register() {
+    const navigate=useNavigate();
 
-function Register(){
-    const navigate =useNavigate();
-
-
-    const handleSubmit =async(e) => {
-      e.preventDefault();
-      if(e.target.password.value !== e.target.rpassword.value){
-        alert("password not match");
-        return false;
-      }
-   
-     let datas={
+  const handleSubmit = async(e) => {
+    e.preventDefault();
+    if(e.target.password.value !== e.target.rpassword.value){
+      alert("Password not match");
+      return false;
+    }
+    let datas={
       name:e.target.name.value,
       email:e.target.email.value,
-      password:e.target.password.value,
       contact_no:e.target.contact_no.value,
-     };
-     
-
+      password:e.target.password.value
+    }
+    const formData = new FormData();
+    for (const property in datas) {
+      formData.append(property, datas[property])
+    }
+   
     try{
-      let url = 'http://localhost/christmas-api/users_add.php';
-
-      let response=await axios({
-        method:'post',
-        responseType:'json',
-        url:url,
-        data:datas
-      });
-    if (response.data.error==0)
-      navigate('/login')
-    else
-      alert(response.data.message)
-     }catch(e){
+      
+      let response= await axios.post('register.php',formData);
+      if(response.data.error==0)
+        navigate('/login')
+      else
+        alert(response.data.message)
+    } 
+    catch(e){
       console.log(e);
     }
+  }
   
-    }
 
-    return(
-      <section className="vh-100 bg-image"
-  style={{backgroundImage: "url('https://mdbcdn.b-cdn.net/img/Photos/new-templates/search-box/img4.webp')"}}>
-  <div className="mask d-flex align-items-center h-100 gradient-custom-3">
-    <div className="container h-100">
-      <div className="row d-flex justify-content-center align-items-center h-100">
-        <div className="col-12 col-md-9 col-lg-7 col-xl-6">
-          <div className="card" style={{borderRadius: "15px"}}>
-            <div className="card-body p-5">
-              <h2 className="text-uppercase text-center mb-5">Create an account</h2>
+  return (
+      <section style={{backgroundColor: "#eee"}}>
+        <div className="container h-100">
+          <div className="row d-flex justify-content-center align-items-center h-100">
+            <div className="col-lg-12 col-xl-11">
+              <div className="card text-black" style={{borderRadius: "25px"}}>
+                <div className="card-body p-md-5">
+                  <div className="row justify-content-center">
+                    <div className="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
 
-              <form onSubmit={handleSubmit}>
+                      <p className="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Sign up</p>
 
-                <div data-mdb-input-init className="form-outline mb-4">
-                  <input type="text" id="form3Example1cg" name="name" className="form-control form-control-lg" />
-                  <label className="form-label" htmlFor="form3Example1cg">Your Name</label>
+                      <form onSubmit={handleSubmit} className="mx-1 mx-md-4">
+
+                        <div className="d-flex flex-row align-items-center mb-4">
+                          <i className="fas fa-user fa-lg me-3 fa-fw"></i>
+                          <div data-mdb-input-init className="form-outline flex-fill mb-0">
+                            <label className="form-label" htmlFor="name">Your Name</label>
+                            <input type="text" name='name' id="name" className="form-control" />
+                          </div>
+                        </div>
+
+                        <div className="d-flex flex-row align-items-center mb-4">
+                          <i className="fas fa-envelope fa-lg me-3 fa-fw"></i>
+                          <div data-mdb-input-init className="form-outline flex-fill mb-0">
+                            <label className="form-label" htmlFor="contact_no">Contact Number</label>
+                            <input type="contact_no" id="contact_no" name="contact_no" className="form-control" />
+                          </div>
+                        </div>
+                        <div className="d-flex flex-row align-items-center mb-4">
+                          <i className="fas fa-envelope fa-lg me-3 fa-fw"></i>
+                          <div data-mdb-input-init className="form-outline flex-fill mb-0">
+                            <label className="form-label" htmlFor="email">Your Email</label>
+                            <input type="email" id="email" name="email" className="form-control" />
+                          </div>
+                        </div>
+
+                        <div className="d-flex flex-row align-items-center mb-4">
+                          <i className="fas fa-lock fa-lg me-3 fa-fw"></i>
+                          <div data-mdb-input-init className="form-outline flex-fill mb-0">
+                            <label className="form-label" htmlFor="password">Password</label>
+                            <input type="password" autocomplete="new-password" id="password" name="password" className="form-control" />
+                          </div>
+                        </div>
+
+                        <div className="d-flex flex-row align-items-center mb-4">
+                          <i className="fas fa-key fa-lg me-3 fa-fw"></i>
+                          <div data-mdb-input-init className="form-outline flex-fill mb-0">
+                            <label className="form-label" htmlFor="rpassword">Repeat your password</label>
+                            <input type="password" autocomplete="new-password" id="rpassword" name="rpassword" className="form-control" />
+                          </div>
+                        </div>
+
+                        <div className="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
+                          <button  type="submit" data-mdb-button-init data-mdb-ripple-init className="btn btn-primary btn-lg">Register</button>
+                        </div>
+
+                      </form>
+
+                    </div>
+                    <div className="col-md-10 col-lg-6 col-xl-7 d-flex align-items-center order-1 order-lg-2">
+
+                      <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-registration/draw1.webp"
+                        className="img-fluid" alt="Sample image"/>
+
+                    </div>
+                  </div>
                 </div>
-
-                <div data-mdb-input-init className="form-outline mb-4">
-                  <input type="email" id="form3Example3cg" name='email' className="form-control form-control-lg" />
-                  <label className="form-label" htmlFor="form3Example3cg">Your Email</label>
-                </div>
-                <div data-mdb-input-init className="form-outline mb-4">
-                  <input type="text" id="contact" name='contact_no' className="form-control form-control-lg" />
-                  <label className="form-label" htmlFor="contact">Contact no</label>
-                </div>
-
-                <div data-mdb-input-init className="form-outline mb-4">
-                  <input type="password" id="form3Example4cg" autoComplete='new-password' name='password' className="form-control form-control-lg" />
-                  <label className="form-label" htmlFor="form3Example4cg">Password</label>
-                </div>
-
-                <div data-mdb-input-init className="form-outline mb-4">
-                 
-                  <label className="form-label" htmlFor="form3Example4cdg">Repeat your password</label>
-                   <input type="password" id="form3Example4cdg" autoComplete='newpassword' name='rpassword' className="form-control form-control-lg" />
-                </div>
-
-                <div className="form-check d-flex justify-content-center mb-5">
-                  <input className="form-check-input me-2" type="checkbox" value="" id="form2Example3cg" />
-                  <label className="form-check-label" htmlFor="form2Example3g">
-                    I agree all statements in <a href="#!" className="text-body"><u>Terms of service</u></a>
-                  </label>
-                </div>
-
-                <div className="d-flex justify-content-center">
-                  <button  type="submit" data-mdb-button-init
-                    data-mdb-ripple-init className="btn btn-success btn-block btn-lg gradient-custom-4 text-body">Register</button>
-                </div>
-
-                <p className="text-center text-muted mt-5 mb-0">Have already an account? <a href="#!"
-                    className="fw-bold text-body"><u>Login here</u></a></p>
-
-              </form>
-
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    </div>
-  </div>
-</section>
-    );
-  }
+      </section>
+    
+  );
+}
+
 
 export default Register;

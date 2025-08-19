@@ -1,51 +1,28 @@
+import React, { useEffect, useState } from 'react';
 import Weblayout from '../layout/Weblayout';
+import axios from '../Admin/component/axios';
+import { useCart } from "react-use-cart";
+
 
 function Home() {
+
+const { addItem } = useCart();
+
+  const [featured,setFeatured]=useState([]);
+  const [newCome,setNewCome]=useState([]);
+  const [inspired,setInspired]=useState([]);
+  useEffect(() => {
+    getProducts();
+  }, []);
+  const getProducts = async (e) => {
+     let feat = await axios.get(`front_api/products.php?query_type=featured&limit=5`)
+     setFeatured(feat.data);
+  }
+
+
+
   return (
     <Weblayout>
-     
-
-<div id="main-wrapper" className="section">
-
-  
-    {/*<div className="hero-slider section fix">*/}
-    <div >
-
-        
-        <div className="hero-item" style={{backgroundImage: "url(img/hero/1.jpg)"}}>
-
-            
-            <div className="hero-content text-center m-auto">
-
-                <h2>Save 25%</h2>
-                <h1>Christmas Sale</h1>
-                <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which.</p>
-                <a href="#">LEARN MORE</a>
-
-            </div>
-
-
-        </div>
-
-        
-        <div className="hero-item" style={{backgroundImage: "url(img/hero/2.jpg)"}}>
-
-            
-            <div className="hero-content text-center m-auto">
-
-                <h2>Save 25%</h2>
-                <h1>Christmas Sale</h1>
-                <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which.</p>
-                <a href="#">LEARN MORE</a>
-
-            </div>
-
-
-        </div>
-
-    </div>
-    
-       
     
     <div className="banner-section section pt-120">
         <div className="container">
@@ -93,293 +70,43 @@ function Home() {
             
             
             <div className="row">
-                
-                
-                <div className="col-lg-4 col-md-6 col-12 mb-60">
-                   
-                    <div className="product">
-
-                        
-                        <div className="image">
-                            
-                            <a href="product-details.html" className="img"><img src="assets/img/product/1.jpg" alt="Product" /></a>
-                            
-                            <a href="#" className="wishlist"><i className="fa fa-heart-o"></i></a>
-                            
-                            <span className="label">New</span>
-                        </div>
-                        
-                        
-                        <div className="content">
-                            
-                            
-                            <div className="head fix">
-                               
-                                
-                                <div className="title-category float-left">
-                                    <h5 className="title"><a href="product-details.html">Holiday Candle</a></h5>
-                                    <a href="shop.html" className="category">Catalog</a>
+               
+                {featured.length > 0 && featured.map((d, key) =>
+                    <div className="col-lg-4 col-md-6 col-12 mb-60">
+                        <div className="product">
+                            <div className="image">
+                                <a href="product-details.html" className="img"><img src={`${process.env.REACT_APP_API_URL}${d.image}`} alt="Product" /></a>
+                                <a href="#" className="wishlist"><i className="fa fa-heart-o"></i></a>
+                            </div>
+                            <div className="content">
+                                <div className="head fix">
+                                    <div className="title-category float-left">
+                                        <h5 className="title"><a href="product-details.html">{d.name}</a></h5>
+                                        <a href="shop.html" className="category">Catalog</a>
+                                    </div>
+                                    <div className="price float-right">
+                                        <span className="new">{d.price}</span>
+                                        <span>  $46</span> 
+                                    </div>
                                 </div>
-                                
-                                <div className="price float-right">
-                                    <span className="new">$38</span>
-                                    
-                                   <span> $46</span> 
-                                
+                                <div className="action-button fix">
+                                    <button className='btn btn-primary' onClick={() => addItem(d)}>
+                                        Add to cart
+                                    </button>
+                                </div>
                             </div>
-                            
-                            
-                            <div className="action-button fix">
-                                <a href="#">add to cart</a>
-                            </div>
-                            
                         </div>
-
                     </div>
-                    
-                </div>
-                
-                
-                <div className="col-lg-4 col-md-6 col-12 mb-60">
-                   
-                    <div className="product">
-
-                        
-                        <div className="image">
-                            
-                            <a href="product-details.html" className="img"><img src="assets/img/product/2.jpg" alt="Product" /></a>
-                            
-                            <a href="#" className="wishlist"><i className="fa fa-heart-o"></i></a>
-                            
-                         
-                        </div>
-                        
-                        
-                        <div className="content">
-                            
-                            
-                            <div className="head fix">
-                               
-                                
-                                <div className="title-category float-left">
-                                    <h5 className="title"><a href="product-details.html">Christmas Tree</a></h5>
-                                    <a href="shop.html" className="category">Catalog</a>
-                                </div>
-                                
-                                <div className="price float-right">
-                                    <span className="new">$38</span>
-                                   
-                                 <span>  $46</span> 
-                                </div>
-                                
-                            </div>
-                            
-                            
-                            <div className="action-button fix">
-                                <a href="#">add to cart</a>
-                            </div>
-                            
-                        </div>
-
-                    </div>
-                    
-                </div>
-                
-                
-                <div className="col-lg-4 col-md-6 col-12 mb-60">
-                   
-                    <div className="product">
-
-                        
-                        <div className="image">
-                            
-                            <a href="product-details.html" className="img"><img src="assets/img/product/3.jpg" alt="Product" /></a>
-                            
-                            <a href="#" className="wishlist"><i className="fa fa-heart-o"></i></a>
-                            
-                            
-                        </div>
-                        
-                        
-                        <div className="content">
-                            
-                            
-                            <div className="head fix">
-                               
-                                
-                                <div className="title-category float-left">
-                                    <h5 className="title"><a href="product-details.html">Santa Claus Doll</a></h5>
-                                    <a href="shop.html" className="category">Catalog</a>
-                                </div>
-                                
-                                <div className="price float-right">
-                                    <span className="new">$38</span>
-                                    
-                                 <span>   $46</span> 
-                                </div>
-                                
-                            </div>
-                            
-                            
-                            <div className="action-button fix">
-                                <a href="#">add to cart</a>
-                            </div>
-                            
-                        </div>
-
-                    </div>
-                    
-                </div>
-                
-                
-                <div className="col-lg-4 col-md-6 col-12 mb-60">
-                   
-                    <div className="product">
-
-                        
-                        <div className="image">
-                            
-                            <a href="product-details.html" className="img"><img src="assets/img/product/4.jpg" alt="Product" /></a>
-                            
-                            <a href="#" className="wishlist"><i className="fa fa-heart-o"></i></a>
-                            
-                            <span className="label">New</span>
-                        </div>
-                        
-                        
-                        <div className="content">
-                            
-                            
-                            <div className="head fix">
-                               
-                                
-                                <div className="title-category float-left">
-                                    <h5 className="title"><a href="product-details.html">Holiday Cap</a></h5>
-                                    <a href="shop.html" className="category">Catalog</a>
-                                </div>
-                                
-                                <div className="price float-right">
-                                    <span className="new">$38</span>
-                                    
-                                   <span> $46</span> 
-                                </div>
-                                
-                            </div>
-                            
-                            
-                            <div className="action-button fix">
-                                <a href="#">add to cart</a>
-                            </div>
-                            
-                        </div>
-
-                    </div>
-                    
-                </div>
-                
-                
-                <div className="col-lg-4 col-md-6 col-12 mb-60">
-                   
-                    <div className="product">
-
-                        
-                        <div className="image">
-                            
-                            <a href="product-details.html" className="img"><img src="assets/img/product/5.jpg" alt="Product" /></a>
-                            
-                            <a href="#" className="wishlist"><i className="fa fa-heart-o"></i></a>
-                            
-                            <span>New</span> 
-                        </div>
-                        
-                        
-                        <div className="content">
-                            
-                            
-                            <div className="head fix">
-                               
-                                
-                                <div className="title-category float-left">
-                                    <h5 className="title"><a href="product-details.html">Holiday Doll</a></h5>
-                                    <a href="shop.html" className="category">Catalog</a>
-                                </div>
-                                
-                                <div className="price float-right">
-                                    <span className="new">$38</span>
-                                    
-                                
-                                </div>
-                                
-                            </div>
-                            
-                            
-                            <div className="action-button fix">
-                                <a href="#">add to cart</a>
-                            </div>
-                            
-                        </div>
-
-                    </div>
-                    
-                </div>
-                
-                
-                <div className="col-lg-4 col-md-6 col-12 mb-60">
-                   
-                    <div className="product">
-
-                        
-                        <div className="image">
-                            
-                            <a href="product-details.html" className="img"><img src="assets/img/product/6.jpg" alt="Product" /></a>
-                            
-                            <a href="#" className="wishlist"><i className="fa fa-heart-o"></i></a>
-                            
-                          <span>  New</span> 
-                        </div>
-                        
-                        
-                        <div className="content">
-                            
-                            
-                            <div className="head fix">
-                               
-                                
-                                <div className="title-category float-left">
-                                    <h5 className="title"><a href="product-details.html">Holiday Candle</a></h5>
-                                    <a href="shop.html" className="category">Catalog</a>
-                                </div>
-                                
-                                <div className="price float-right">
-                                    <span className="new">$38</span>
-                                    
-                                 
-                                </div>
-                                
-                            </div>
-                            
-                            
-                            <div className="action-button fix">
-                                <a href="#">add to cart</a>
-                            </div>
-                            
-                        </div>
-
-                    </div>
-                    
-                </div>
+                 )}
                 
             </div>
-            
         </div>
-    </div>
     
        
     
     <div className="testimonial-section section bg-gray pt-100 pb-65" style={{backgroundImage: "url(img/bg/testimonial.png)"}}>
         <div className="container">
            
-            
             <div className="row">
                 <div className="section-title text-center col mb-60">
                     <h1>Customer Reviews</h1>
@@ -554,7 +281,6 @@ function Home() {
 
 </div>
 
-</div>
 </Weblayout>
   );
 }

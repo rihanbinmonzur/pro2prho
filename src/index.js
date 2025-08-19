@@ -1,10 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
-import Header from './component/Header';
 import {BrowserRouter} from 'react-router-dom';
 import App from './App';
-import Footer from './component/Footer';
 
 import reportWebVitals from './reportWebVitals';
 
