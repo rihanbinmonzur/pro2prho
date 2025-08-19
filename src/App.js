@@ -7,6 +7,7 @@ import About from './pages/About';
  import Dashboard from './Admin/Dashboard';
  import Users from './Admin/Users';
  import Useradd from './Admin/Useradd';
+ import Register from "./Admin/Register";
  
 
 
@@ -23,7 +24,8 @@ function App() {
     <Route path="/admin/dashboard" element={<Dashboard />} />
     <Route path="/admin/user" element={<Users/>} />
     <Route path="/admin/useradd" element={<Useradd/>} />
-
+    <Route path="/admin/register" element={<Register/>} />
+    <Route path="/admin/login" element={<login/>} />
    
  </Routes>    
      
